@@ -93,7 +93,14 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(-,root,root)
 %doc COPYING NEWS 
+
+%ifarch i586
 %attr(755,root,root) %{_datadir}/exe/templates/mimetex.cgi
+%endif
+%ifarch x86_64
+%attr(755,root,root) %{_datadir}/exe/templates/mimetex.64.cgi
+%endif
+
 %{_bindir}/exe
 %dir %{py_sitedir}/exe
 %{py_sitedir}/exe

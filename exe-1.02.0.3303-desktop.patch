@@ -1,0 +1,22 @@
+Index: exe.desktop
+===================================================================
+--- exe.desktop.orig
++++ exe.desktop
+@@ -2,12 +2,14 @@
+ Type=Application
+ Encoding=UTF-8
+ Name=eXe
++GenericName=XHTML editor
+ Comment=eLearning XHTML editor
+ Exec=exe %f
+-Icon=exe.png
++Icon=exe
+ Terminal=false
+-MimeType=application/x-exe
+-Categories=Application;Utility;Editor;
++MimeType=application/x-exe;
++Categories=Development;WebDevelopment;
++StartupNotify=true
+ StartupWMClass=eXe
+ X-Desktop-File-Install-Version=0.10
+ 

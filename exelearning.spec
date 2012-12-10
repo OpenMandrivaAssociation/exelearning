@@ -4,7 +4,7 @@ Url:            http://exelearning.org/
 Version:        1.04.0.3532
 License:        GPL
 Group:          Publishing
-Release:        %mkrel 3
+Release:        4
 Source0:        exe-%{version}-source.tar.bz2
 Source1:	exe_ru.tar.gz
 Patch0:         exe-1.02.0.3303-desktop.patch
@@ -17,7 +17,6 @@ Requires:       python-zope-interface
 Requires:       firefox
 Requires:       python-xmldiff
 Suggests:     %name-manual = %version
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %{py_requires}
 
 %description
@@ -70,12 +69,27 @@ python rpm-setup.py build
 
 %install
 export NO_BRP_CHECK_BYTECODE_VERSION="true"
-python rpm-setup.py install --prefix=%{_prefix} --root=$RPM_BUILD_ROOT
+python rpm-setup.py install --prefix=%{_prefix} --root=%{buildroot}
 #
-cp -a twisted nevow formless $RPM_BUILD_ROOT%{_datadir}/exe
-install -Dm644 exe.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/exe.png
-install -Dm644 exe.desktop $RPM_BUILD_ROOT%{_datadir}/applications/exe.desktop
-install -Dm644 exe.xml     $RPM_BUILD_ROOT%{_datadir}/mime/packages/exe.xml
+cp -a twisted nevow formless %{buildroot}%{_datadir}/exe
+install -Dm644 exe.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/exe.png
+install -Dm644 exe.desktop %{buildroot}%{_datadir}/applications/exe.desktop
+install -Dm644 exe.xml     %{buildroot}%{_datadir}/mime/packages/exe.xml
+
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/web/test/test_distrib.py
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/trial/test/scripttest.py
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/tokens.py
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/test/test_schema.py 
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/remoteinterface.py
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/banana.py
+chmod 755 %{buildroot}%{_datadir}/exe/twisted/internet/glib2reactor.py
+chmod 755 %{buildroot}%{py_sitedir}/exe/webui/webserver.py
+chmod 755 %{buildroot}%{py_sitedir}/exe/webui/browser.py
+chmod 755 %{buildroot}%{py_sitedir}/exe/engine/version.py
+chmod 755 %{buildroot}%{py_sitedir}/exe/engine/feedparser.py
+chmod 755 %{buildroot}%{py_sitedir}/exe/application.py
+chmod 755 %{buildroot}%{_datadir}/exe/templates/mimetex*.cgi
+
 
 %post
 if [ -f usr/bin/update-mime-database ]; then
@@ -87,23 +101,12 @@ if [ -f usr/bin/update-mime-database ]; then
   usr/bin/update-mime-database /usr/share/mime > /dev/null
 fi
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files 
 %defattr(-,root,root)
 %doc COPYING NEWS 
-
-%ifarch i586
-%attr(755,root,root) %{_datadir}/exe/templates/mimetex.cgi
-%endif
-%ifarch x86_64
-%attr(755,root,root) %{_datadir}/exe/templates/mimetex.64.cgi
-%endif
-
 %{_bindir}/exe
 %dir %{py_sitedir}/exe
-%{py_sitedir}/exe
+%{py_sitedir}/exe/*
 %dir %{_datadir}/exe
 %{_datadir}/exe/*
 %exclude %{_datadir}/exe/docs/manual/*
@@ -117,20 +120,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_sitedir}/exe-*.egg-info
 
-%defattr(755,root,root,-)
-%{_datadir}/exe/twisted/web/test/test_distrib.py
-%{_datadir}/exe/twisted/trial/test/scripttest.py
-%{_datadir}/exe/twisted/pb/tokens.py
-%{_datadir}/exe/twisted/pb/test/test_schema.py 
-%{_datadir}/exe/twisted/pb/remoteinterface.py
-%{_datadir}/exe/twisted/pb/banana.py
-%{_datadir}/exe/twisted/internet/glib2reactor.py
-%{py_sitedir}/exe/webui/webserver.py
-%{py_sitedir}/exe/webui/browser.py
-%{py_sitedir}/exe/engine/version.py
-%{py_sitedir}/exe/engine/feedparser.py
-%{py_sitedir}/exe/application.py
-
 %files manual
 %defattr(-,root,root)
 %dir %{_datadir}/exe/docs/manual
@@ -142,3 +131,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/exe/twisted/protocols/_c_urlarg.c
 %{_datadir}/exe/twisted/internet/iocpreactor/_iocp.c
 %{_datadir}/exe/twisted/internet/cfsupport/cfsupport.c
+
+
+%changelog
+* Sat May 21 2011 Александр Казанцев <kazancas@mandriva.org> 1.04.0.3532-3mdv2011.0
++ Revision: 676955
+- imported package exelearning
+

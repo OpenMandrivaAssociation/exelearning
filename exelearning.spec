@@ -1,5 +1,6 @@
 Name:           exelearning
-Summary:        eXe eLearning XHTML editor
+Summary:        EXe eLearning XHTML editor
+
 Url:            http://exelearning.org/
 Version:        1.04.0.3532
 License:        GPL
@@ -16,8 +17,8 @@ Requires:       python-imaging
 Requires:       python-zope-interface
 Requires:       firefox
 Requires:       python-xmldiff
-Suggests:     %name-manual = %version
-%{py_requires}
+Suggests:     %{name}-manual = %{version}
+
 
 %description
 eXe, the eLearning XHTML editor, is an authoring environment which enables
@@ -29,16 +30,18 @@ Management System.
 
 %package manual
 Summary:        The complete manual for eXe
+
 Group:          Books/Other
-Recommends:     %name = %version
+Recommends:     %{name} = %{version}
 
 %description manual
 This package contains the complete manual for eXe.
 
 %package devel
 Summary:        Development package for eXe based software
+
 Group:          Development/Other
-Requires:       %name = %version
+Requires:       %{name} = %{version}
 
 %description devel
 This package contains the header files and libraries needed to develop
@@ -83,11 +86,11 @@ chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/test/test_schema.py
 chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/remoteinterface.py
 chmod 755 %{buildroot}%{_datadir}/exe/twisted/pb/banana.py
 chmod 755 %{buildroot}%{_datadir}/exe/twisted/internet/glib2reactor.py
-chmod 755 %{buildroot}%{py_sitedir}/exe/webui/webserver.py
-chmod 755 %{buildroot}%{py_sitedir}/exe/webui/browser.py
-chmod 755 %{buildroot}%{py_sitedir}/exe/engine/version.py
-chmod 755 %{buildroot}%{py_sitedir}/exe/engine/feedparser.py
-chmod 755 %{buildroot}%{py_sitedir}/exe/application.py
+chmod 755 %{buildroot}%{py_puresitedir}/exe/webui/webserver.py
+chmod 755 %{buildroot}%{py_puresitedir}/exe/webui/browser.py
+chmod 755 %{buildroot}%{py_puresitedir}/exe/engine/version.py
+chmod 755 %{buildroot}%{py_puresitedir}/exe/engine/feedparser.py
+chmod 755 %{buildroot}%{py_puresitedir}/exe/application.py
 chmod 755 %{buildroot}%{_datadir}/exe/templates/mimetex*.cgi
 
 
@@ -102,11 +105,10 @@ if [ -f usr/bin/update-mime-database ]; then
 fi
 
 %files 
-%defattr(-,root,root)
 %doc COPYING NEWS 
 %{_bindir}/exe
-%dir %{py_sitedir}/exe
-%{py_sitedir}/exe/*
+%dir %{py_puresitedir}/exe
+%{py_puresitedir}/exe/*
 %dir %{_datadir}/exe
 %{_datadir}/exe/*
 %exclude %{_datadir}/exe/docs/manual/*
@@ -118,23 +120,16 @@ fi
 %exclude %{_datadir}/exe/twisted/internet/iocpreactor/_iocp.c
 %exclude %{_datadir}/exe/twisted/internet/cfsupport/cfsupport.c
 
-%{py_sitedir}/exe-*.egg-info
+%{py_puresitedir}/exe-*.egg-info
 
 %files manual
-%defattr(-,root,root)
 %dir %{_datadir}/exe/docs/manual
 %{_datadir}/exe/docs/manual/*
 
 %files devel
-%defattr(-,root,root)
 %{_datadir}/exe/twisted/spread/cBanana.c
 %{_datadir}/exe/twisted/protocols/_c_urlarg.c
 %{_datadir}/exe/twisted/internet/iocpreactor/_iocp.c
 %{_datadir}/exe/twisted/internet/cfsupport/cfsupport.c
 
-
-%changelog
-* Sat May 21 2011 Александр Казанцев <kazancas@mandriva.org> 1.04.0.3532-3mdv2011.0
-+ Revision: 676955
-- imported package exelearning
 

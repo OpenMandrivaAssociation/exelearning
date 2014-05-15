@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 Name:           exelearning
 Summary:        EXe eLearning XHTML editor
 

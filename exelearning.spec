@@ -7,7 +7,7 @@ Url:            http://exelearning.org/
 Version:        1.04.0.3532
 License:        GPL
 Group:          Publishing
-Release:        4
+Release:        5
 Source0:        exe-%{version}-source.tar.bz2
 Source1:	exe_ru.tar.gz
 Patch0:         exe-1.02.0.3303-desktop.patch

@@ -7,11 +7,12 @@ Url:            http://exelearning.org/
 Version:        1.04.0.3532
 License:        GPL
 Group:          Publishing
-Release:        5
+Release:        6
 Source0:        exe-%{version}-source.tar.bz2
 Source1:	exe_ru.tar.gz
 Patch0:         exe-1.02.0.3303-desktop.patch
 #Patch1:         exe-1.04.0.3532-deprecated_md5.patch
+Patch2:		exe-1.04-pillow.patch
 BuildRequires:  python-devel unzip
 BuildRequires:  fdupes
 BuildRequires:  python-setuptools
@@ -54,6 +55,7 @@ programs that use eXe.
 %setup -n exe -a 1
 %patch0 
 #patch1 -p0
+%patch2 -p1
 # remove the other platform binaries
 #rm -f exe/webui/templates/mimetex.64.cgi exe/webui/templates/mimetex.exe
 rm -f exe/webui/templates/mimetex-darwin.cgi

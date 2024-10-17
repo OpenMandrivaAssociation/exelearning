@@ -3,7 +3,7 @@
 Name:           exelearning
 Summary:        EXe eLearning XHTML editor
 
-Url:            http://exelearning.org/
+Url:            https://exelearning.org/
 Version:        1.04.0.3532
 License:        GPL
 Group:          Publishing
